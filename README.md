@@ -27,29 +27,30 @@ Verify the image is in gcr:
 
  # Deploying to Kubernetes and Knative
  
-The deploy steps assume you have a working knowledge of kubernetes and knative.  
-
-The deployment was done with GCP and a cloud shell but can be easily done on any Kubernetes cluster with Istio and Knative.
+The deploy steps assume you have a working knowledge of kubernetes and knative.  The deployment was done with GCP and a cloud shell but can be easily done on any Kubernetes cluster with Istio and Knative.
  
-The [Portable Serverless Workshop](https://docs.google.com/document/d/1bWAxf5dXgPYWKkrRussz5h8qfCQU7vSpFIpYEBPZGP8/edit#) shows how to setup a kubernetes cluster with istio and knative.  
+The [Portable Serverless Workshop](https://docs.google.com/document/d/1bWAxf5dXgPYWKkrRussz5h8qfCQU7vSpFIpYEBPZGP8/edit#) shows how to setup a Kubernetes cluster with Istio and Knative.  
+  
+In this simple tutorial we run the kubernetes pods and the knative service deployments scripts on the cloud console.  To get the scripts in the console git clone this repo inside the cloud console.
  
-
-
-## Deploying a Microservice to Kubernetes
-
-
-## Deploying a Microservice to KNative
-
-The [Portable Serverless Workshop](https://docs.google.com/document/d/1bWAxf5dXgPYWKkrRussz5h8qfCQU7vSpFIpYEBPZGP8/edit#) uses a Tekton Pipeline to compile the app from the github repo, create the container image, push it to GCR, and deploy the image in Knative Serving.
-
-In this simple tutorial we are just going to run the the knative service deployment scripts on the cloud console. You can either copy and paste to a file on the server or git clone this repo.
- 
-In the cloud console or the server with kubernetes run the following command to get the source yaml scripts for deployments:
+In the cloud console or the server with access to kubernetes run the following command to get the source yaml scripts for deployments:
   
  ```shell script
     git clone https://github.com/retroryan/fearless-serverless
-    cd fearless-serverless
+    cd fearless-serverless/knative
 ```
+
+## Deploying a Microservice to Kubernetes
+
+ ```shell script
+    kubectl apply -f fearless-deployment-v1.yaml
+
+    kubectl port-forward 
+```
+
+## Deploying a Microservice to Knative
+
+The [Portable Serverless Workshop](https://docs.google.com/document/d/1bWAxf5dXgPYWKkrRussz5h8qfCQU7vSpFIpYEBPZGP8/edit#) uses a Tekton Pipeline to compile the app from the github repo, create the container image, push it to GCR, and deploy the image in Knative Serving.
 
 And then deploy the knative service with:
 
