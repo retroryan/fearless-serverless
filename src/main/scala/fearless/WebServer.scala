@@ -20,7 +20,7 @@ object WebServer {
 
     new WebServer()
 
-    Await.ready(actorSystem.whenTerminated, Duration.Inf)
+
   }
 }
 
@@ -45,9 +45,14 @@ class WebServer()(implicit val system: ActorSystem) extends WebRoutes {
     Http().bindAndHandle(routes, host, port)
 
   println(s"Server online at http://$host:$port/")
-  StdIn.readLine()
+
+  while (!Thread.currentThread.isInterrupted) {}
+
+
   bindingFuture
     .flatMap(_.unbind()) // trigger unbinding from the port
     .onComplete(_ => system.terminate()) // and shutdown when done
+
+  Await.ready(system.whenTerminated, Duration.Inf)
 
 }

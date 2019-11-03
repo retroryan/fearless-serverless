@@ -53,31 +53,38 @@ And then deploy the knative service with:
 
  # Building and pushing the docker image
 
+Get the IP and hostname for the service:
 
-
+```shell script
 export IP_ADDRESS=$(kubectl get svc istio-ingressgateway -n istio-system \
   -o 'jsonpath={.status.loadBalancer.ingress[0].ip}')
 echo $IP_ADDRESS
 
-Get the hostname for the service:
 
-export HOST_NAME=$(kubectl get route kafka-to-web \
+export HOST_NAME=$(kubectl get route fearless-service \
   -o 'jsonpath={.status.url}' | cut -c8-)
 echo $HOST_NAME
+```
 
 Curl the service:
 
-curl -w'\n' -H "Host: $HOST_NAME" http://${IP_ADDRESS}
+```shell script
+    curl -w'\n' -H "Host: $HOST_NAME" http://${IP_ADDRESS}
+```
+
+Create a custom domain
+
+```shell script
+  sed -i -e "s/{IP_ADDRESS}/$IP_ADDRESS/"  knative/custom-domain.yaml
+  kubectl apply -f custom-domain.yaml
+  echo "http://fearless-service.$IP_ADDRESS.nip.io"
+```
 
 
-custom domain
+# Clean up or retry
 
-sed -i -e "s/$IP_ADDRESS/${IP_ADDRESS}/"  knative/custom-domain.yaml
-
-
-kubectl apply -f custom-domain.yaml
-
-
-echo "http://kafka-to-web.default.$IP_ADDRESS.nip.io"
+```shell script
+  kubectl delete -f knative/fearless-service-v1.yaml
+```
 
 
