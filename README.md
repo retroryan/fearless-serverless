@@ -25,17 +25,24 @@ Verify the image is in gcr:
     gcloud container images list-tags gcr.io/none-219021/fearless-service
 ```
 
- # Deploying
+ # Deploying to Kubernetes and Knative
  
 The deploy steps assume you have a working knowledge of kubernetes and knative.  
 
-The deployment was done with GCP and a cloud shell but can be easily done on any kubernetes cluster with Istio and Knative.
+The deployment was done with GCP and a cloud shell but can be easily done on any Kubernetes cluster with Istio and Knative.
  
-The [Portable Serverless Workshop](https://docs.google.com/document/d/1bWAxf5dXgPYWKkrRussz5h8qfCQU7vSpFIpYEBPZGP8/edit#) shows how to setup a kubernetes cluster with knative.  
+The [Portable Serverless Workshop](https://docs.google.com/document/d/1bWAxf5dXgPYWKkrRussz5h8qfCQU7vSpFIpYEBPZGP8/edit#) shows how to setup a kubernetes cluster with istio and knative.  
  
-The workshop uses a Tekton Pipeline to compile the app from the github repo, create the container image, push it to GCR, and deploy the image in Knative Serving.
 
-In this simple tutorial we are just going to run the the knative service deployment scripts to the machine. You can either copy and paste to a file on the server or git clone this repo.
+
+## Deploying a Microservice to Kubernetes
+
+
+## Deploying a Microservice to KNative
+
+The [Portable Serverless Workshop](https://docs.google.com/document/d/1bWAxf5dXgPYWKkrRussz5h8qfCQU7vSpFIpYEBPZGP8/edit#) uses a Tekton Pipeline to compile the app from the github repo, create the container image, push it to GCR, and deploy the image in Knative Serving.
+
+In this simple tutorial we are just going to run the the knative service deployment scripts on the cloud console. You can either copy and paste to a file on the server or git clone this repo.
  
 In the cloud console or the server with kubernetes run the following command to get the source yaml scripts for deployments:
   
@@ -69,7 +76,7 @@ echo $HOST_NAME
 Curl the service:
 
 ```shell script
-    curl -w'\n' -H "Host: $HOST_NAME" http://${IP_ADDRESS}
+    curl -w'\n' -H "Host: $HOST_NAME" http://${IP_ADDRESS}/widgets
 ```
 
 Create a custom domain
@@ -80,6 +87,9 @@ Create a custom domain
   echo "http://fearless-service.$IP_ADDRESS.nip.io"
 ```
 
+```shell script
+http post http://fearless-service.default.35.239.253.188.nip.io/add id="3425-PART-A" description="Space Shield"
+```
 
 # Clean up or retry
 
