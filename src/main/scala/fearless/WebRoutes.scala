@@ -34,7 +34,7 @@ trait WebRoutes {
 
             maybeWidget match {
               case None => complete(StatusCodes.Accepted, "Added Widget to Registry")
-              case Some(_) => complete(StatusCodes.Conflict, "Widget Already Exists in Registry")
+              case Some(exc) => complete(StatusCodes.Conflict, exc)
             }
           }
         }

@@ -1,6 +1,36 @@
 # fearless-serverless
 
+# Setup PG
 
+Install PG
+```shell script
+    brew install postgresql
+```
+
+Overview of PG Commands - init DB 
+
+```shell script
+    initdb -D /usr/local/var/postgres
+    pg_ctl -D /usr/local/var/postgres -l logfile start
+    createuser spaceman
+    createdb space_widgets -O spaceman
+    psql space_widgets -U spaceman -h localhost
+```
+
+psql commands - be sure to import the schema!
+
+```shell script
+    \i schema/schema-postgres.txt
+    \dt
+    \du
+    select * from space_widgets ;
+```
+
+Clean up commands
+```shell script
+    dropdb spaceman
+    pg_ctl -D /usr/local/var/postgres stop
+```
 
 # Testing Locally with httpie
 

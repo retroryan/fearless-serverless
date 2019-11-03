@@ -7,10 +7,10 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 import com.typesafe.config.{Config, ConfigFactory}
+import com.typesafe.scalalogging.StrictLogging
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContextExecutor, Future}
-import scala.io.StdIn
 
 object WebServer {
   def main(args: Array[String]): Unit = {
@@ -24,7 +24,7 @@ object WebServer {
   }
 }
 
-class WebServer()(implicit val system: ActorSystem) extends WebRoutes {
+class WebServer()(implicit val system: ActorSystem) extends WebRoutes with StrictLogging {
 
   lazy val routes: Route = webRoutes
   implicit val materializer: ActorMaterializer = ActorMaterializer()
@@ -35,16 +35,19 @@ class WebServer()(implicit val system: ActorSystem) extends WebRoutes {
   val host: String = config.getString("fearless.server.host")
   val port: Int = config.getInt("fearless.server.port")
   val startupDelay: Long = config.getDuration("fearless.server.startup.delay", TimeUnit.SECONDS)
-
   private val duration = Duration(startupDelay, TimeUnit.SECONDS)
-  println(s"$startupDelay   and $duration")
+  logger.info(s"Delaying startup by $duration")
 
-  override val registry: SpaceWidgetRegistry = SpaceWidgetRegistry(duration)
+  /** Optional Local Space Widget Registry for Testing
+   * override val registry: SpaceWidgetRegistry = LocalSpaceWidgetRegistry(duration)
+   */
+
+  override val registry: SpaceWidgetRegistry = DbSpaceWidgetRegistry(config, duration)
 
   val bindingFuture: Future[Http.ServerBinding] =
     Http().bindAndHandle(routes, host, port)
 
-  println(s"Server online at http://$host:$port/")
+  logger.info(s"Server online at http://$host:$port/")
 
   while (!Thread.currentThread.isInterrupted) {}
 
