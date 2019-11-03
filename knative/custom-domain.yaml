@@ -4,4 +4,4 @@ metadata:
   name: config-domain
   namespace: knative-serving
 data:
-  $IP_ADDRESS.nip.io: ""
+  {IP_ADDRESS}.nip.io: ""

@@ -54,6 +54,7 @@ And then deploy the knative service with:
  # Building and pushing the docker image
 
 
+
 export IP_ADDRESS=$(kubectl get svc istio-ingressgateway -n istio-system \
   -o 'jsonpath={.status.loadBalancer.ingress[0].ip}')
 echo $IP_ADDRESS
@@ -69,11 +70,9 @@ Curl the service:
 curl -w'\n' -H "Host: $HOST_NAME" http://${IP_ADDRESS}
 
 
-export IP_ADDRESS=$(kubectl get svc istio-ingressgateway -n istio-system \
-  -o 'jsonpath={.status.loadBalancer.ingress[0].ip}')
-echo $IP_ADDRESS
-
 custom domain
+
+sed -i -e "s/$IP_ADDRESS/${IP_ADDRESS}/"  knative/custom-domain.yaml
 
 
 kubectl apply -f custom-domain.yaml
