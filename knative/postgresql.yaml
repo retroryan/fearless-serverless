@@ -48,6 +48,10 @@ metadata:
   name: postgres
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+      version: "10.4"
   template:
     metadata:
       labels:
