@@ -5,9 +5,9 @@ metadata:
   labels:
     app: postgres
 data:
-  POSTGRES_DB: postgresdb
-  POSTGRES_USER: postgresadmin
-  POSTGRES_PASSWORD: admin123
+  POSTGRES_DB: space_widgets
+  POSTGRES_USER: spaceman
+  POSTGRES_PASSWORD: spaceman123
 
 ---
 
