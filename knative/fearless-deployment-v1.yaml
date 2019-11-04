@@ -23,7 +23,7 @@ spec:
         - name: STARTUP_DELAY
           value: "5s"
         - name: RDS_SERVERNAME
-          value: "0.0.0.0"
+          value: "postgres"
 ---
 apiVersion: v1
 kind: Service

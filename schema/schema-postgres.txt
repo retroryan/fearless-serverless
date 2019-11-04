@@ -1,6 +1,0 @@
-drop table if exists space_widgets;
-
-create table space_widgets (
-    id varchar(40) primary key,
-    description varchar(200)
-);

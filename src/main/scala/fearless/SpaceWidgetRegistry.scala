@@ -25,7 +25,7 @@ trait SpaceWidgetRegistry {
   def all(): Iterable[SpaceWidget]
 }
 
-class DbSpaceWidgetRegistry private(dataSource: HikariDataSource) extends SpaceWidgetRegistry  with StrictLogging {
+class DbSpaceWidgetRegistry private(dataSource: HikariDataSource) extends SpaceWidgetRegistry with StrictLogging {
 
   val db: Statement = dataSource.getConnection.createStatement()
 
@@ -71,6 +71,8 @@ object DbSpaceWidgetRegistry extends StrictLogging {
     val dataSource: HikariDataSource = Hikari(config)
     val registry = new DbSpaceWidgetRegistry(dataSource)
 
+    createTable(dataSource.getConnection.createStatement())
+
     logger.info(s"Loading Space Widget Registry from DB. Waiting ${startupDelayTime}")
     Thread.sleep(startupDelayTime.length * 1000)
     List(
@@ -84,6 +86,28 @@ object DbSpaceWidgetRegistry extends StrictLogging {
     }
     logger.info(s"Space Widget Registry loaded from db.")
     registry
+  }
+
+  def createTable(db: Statement) = {
+    logger.info(s"Creating table")
+    try {
+      val create_table =
+        s"""
+            CREATE TABLE IF NOT EXISTS space_widgets (
+                id varchar(40) primary key,
+                description varchar(200)
+            );
+            """
+      logger.info(s"CREATE TABLE -> $create_table")
+      db.executeUpdate(
+        create_table)
+      None
+    }
+    catch {
+      case exc: Throwable =>
+        logger.error(exc.toString)
+        Some("Error creating table")
+    }
   }
 }
 
