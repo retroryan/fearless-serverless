@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: fearless
-        image: gcr.io/none-219021/fearless-service:0.2
+        image: gcr.io/none-219021/fearless-service:0.3
         ports:
         - containerPort: 8080
         env:

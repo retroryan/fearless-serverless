@@ -44,8 +44,8 @@ Clean up commands
  
  ```shell script
     sbt docker:publishLocal 
-    docker tag fearless-serverless:0.2 gcr.io/none-219021/fearless-service:0.2
-    docker push gcr.io/none-219021/fearless-service:0.2
+    docker tag fearless-serverless:0.3 gcr.io/none-219021/fearless-service:0.3
+    docker push gcr.io/none-219021/fearless-service:0.3
 ```
 
 Verify the image is in gcr:
