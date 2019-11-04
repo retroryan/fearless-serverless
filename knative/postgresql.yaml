@@ -14,6 +14,8 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: postgres-pv-volume
+  annotations:
+    volume.beta.kubernetes.io/storage-class: standard
   labels:
     type: local
     app: postgres
@@ -23,22 +25,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: postgres-pv-claim
-  labels:
-    app: postgres
-spec:
-  storageClassName: manual
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 5Gi
-
+      
 ---
 apiVersion: apps/v1
 kind: Deployment
