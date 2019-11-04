@@ -18,10 +18,12 @@ spec:
         ports:
         - containerPort: 8080
         env:
-          - name: HOST
-            value: "0.0.0.0"
-          - name: STARTUP_DELAY
-            value: "5s"
+        - name: HOST
+          value: "0.0.0.0"
+        - name: STARTUP_DELAY
+          value: "5s"
+        - name: RDS_SERVERNAME
+          value: "0.0.0.0"
 ---
 apiVersion: v1
 kind: Service
