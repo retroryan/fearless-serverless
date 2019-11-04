@@ -75,7 +75,11 @@ In the cloud console or the server with access to kubernetes run the following c
  ```shell script
     kubectl apply -f fearless-deployment-v1.yaml
 
-    kubectl port-forward fearless-6447f6588f-8wkpb 8080:8080
+    kubectl port-forward fearless-5b99f7459-dbj7s 8080:8080
+
+    http post https://8080-dot-3048701-dot-devshell.appspot.com/add id="3425-PART-A" description="Ice Shield"
+
+
 ```
 
 ## Deploying a Microservice to Knative
