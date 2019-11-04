@@ -17,7 +17,7 @@ object Hikari extends StrictLogging {
     props.setProperty("dataSource.databaseName", config.getString("ctx.dataSource.dbName"))
     props.setProperty("dataSource.portNumber", config.getString("ctx.dataSource.dbPort"))
     props.setProperty("dataSource.serverName", config.getString("ctx.dataSource.dbHost"))
-    logger.info(s"db props: $props")
+    logger.info(s"connecting with db props: $props")
     new HikariDataSource(new HikariConfig(props))
   }
 

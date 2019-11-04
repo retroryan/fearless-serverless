@@ -82,7 +82,7 @@ object DbSpaceWidgetRegistry extends StrictLogging {
     ).foreach { widget =>
       registry.addWidget(widget)
     }
-    logger.info(s"Space Widget Registry loaded from cache.")
+    logger.info(s"Space Widget Registry loaded from db.")
     registry
   }
 }

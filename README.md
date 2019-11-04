@@ -44,8 +44,8 @@ Clean up commands
  
  ```shell script
     sbt docker:publishLocal 
-    docker tag fearless-serverless:0.1 gcr.io/none-219021/fearless-service:0.1
-    docker push gcr.io/none-219021/fearless-service:0.1
+    docker tag fearless-serverless:0.2 gcr.io/none-219021/fearless-service:0.2
+    docker push gcr.io/none-219021/fearless-service:0.2
 ```
 
 Verify the image is in gcr:
@@ -75,7 +75,7 @@ In the cloud console or the server with access to kubernetes run the following c
  ```shell script
     kubectl apply -f fearless-deployment-v1.yaml
 
-    kubectl port-forward 
+    kubectl port-forward fearless-6447f6588f-8wkpb 8080:8080
 ```
 
 ## Deploying a Microservice to Knative
