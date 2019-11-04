@@ -6,9 +6,11 @@ spec:
   template:
     spec:
       containers:
-        - image: gcr.io/none-219021/fearless-service:0.1
+        - image: gcr.io/none-219021/fearless-service:0.3
           env:
           - name: HOST
             value: "0.0.0.0"
           - name: STARTUP_DELAY
             value: "5s"
+          - name: RDS_SERVERNAME
+            value: "postgres"
